@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 {% block title %}
-Edit {{ car.car_name }}
+    Edit Car
 {% endblock title %}
 {% block content %}
-<h1>Edit {{ car.car_name }}</h1> <form method="post">
-{% csrf_token %}
-{{ form }}
-<input type="submit" value="Update Car">
-</form>
+    <h1>Edit Car</h1>
+    <form method="post" action="." enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in car_form %}
+        <p>{{ field.label_tag }} {{ field }}</p>
+        {% endfor %}
+        <input type="submit" value="Add Car" />
+    </form>
 {% endblock content %}

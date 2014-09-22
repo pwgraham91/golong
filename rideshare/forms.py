@@ -30,6 +30,10 @@ class TravelerUserCreationForm(UserCreationForm):
 #     passenger = forms.ModelMultipleChoiceField(queryset=Traveler.objects.all(), label="Passenger(s) riding with you")
 
 class RouteForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        traveler = kwargs.pop('traveler', None)
+        super(RouteForm, self).__init__(*args, **kwargs)
+        self.fields['trip_car'] = forms.ModelChoiceField(Car.objects.filter(owner=traveler))
     class Meta:
         model = Route
         fields = ("trip_name", "start_city_state", "start_date",

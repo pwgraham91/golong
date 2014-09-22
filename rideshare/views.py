@@ -52,7 +52,6 @@ def car_form(request):
                                seats=form.cleaned_data['seats'],
                                car_image=form.cleaned_data['car_image'],
                                owner=request.user)
-            form.save()
             routes = Route.objects.filter(trip_driver__username=request.user)
             passenger_routes = Route.objects.filter(passenger__username=request.user)
             cars = Car.objects.filter(owner__username=request.user)
@@ -72,11 +71,11 @@ def car_form(request):
 
 @login_required()
 def route_form(request):
-    data = {"route_form": RouteForm()}
-    route_form = RouteForm()
-    route_form.fields["trip_car"].queryset = Car.objects.filter(owner__username=request.user)
+    traveler = request.user
+    data = {"route_form": RouteForm(traveler= traveler)}
+    # route_form = RouteForm()
     if request.method == 'POST':
-        form = RouteForm(request.POST)
+        form = RouteForm(request.POST, traveler=traveler)
         if form.is_valid():
             Route.objects.create(trip_name=form.cleaned_data['trip_name'],
                                start_city_state=form.cleaned_data['start_city_state'],
@@ -100,20 +99,33 @@ def view_car(request, car_id):
 
 def edit_car(request, car_id):
     car = Car.objects.get(id=car_id)
-    if request.method == "POST":
-        form = CarForm(request.POST)
+    data = {"car_form": CarForm()}
+    if request.method == 'POST':
+        form = CarForm(request.POST, request.FILES)
         if form.is_valid():
             Car.objects.create(car_name=form.cleaned_data['car_name'],
-                   car_model=form.cleaned_data['car_model'],
-                   car_year=form.cleaned_data['car_year'],
-                   seats=form.cleaned_data['seats'],
-                   owner=request.user)
+                               car_model=form.cleaned_data['car_model'],
+                               car_year=form.cleaned_data['car_year'],
+                               seats=form.cleaned_data['seats'],
+                               car_image=form.cleaned_data['car_image'],
+                               owner=request.user)
             car.delete()
-            return redirect("profile")
+            routes = Route.objects.filter(trip_driver__username=request.user)
+            passenger_routes = Route.objects.filter(passenger__username=request.user)
+            cars = Car.objects.filter(owner__username=request.user)
+            data = {
+                'traveler': request.user,
+                'routes': routes,
+                'cars': cars,
+                'passenger_routes': passenger_routes,
+            }
+            return render(request, "profile.html", data)
+        else:
+            data = {"car_form": form}
+            return render(request, "car_form.html", data)
+
     else:
-        form= CarForm()
-    data = {"car": car, "form": form}
-    return render(request, "edit_car.html", data)
+        return render(request, "car_form.html", data)
 
 def view_route(request, route_id):
     viewer = request.user
