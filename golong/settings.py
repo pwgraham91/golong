@@ -91,19 +91,6 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
-# Static asset configuration
-import os
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
-try:
-    from local_settings import *
-except ImportError:
-    pass
 
 AUTH_USER_MODEL = 'rideshare.Traveler'
 LOGIN_REDIRECT_URL = 'profile'
@@ -118,4 +105,18 @@ DEFAULT_FROM_EMAIL = 'pwgraham91@gmail.com'
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, "rideshare/static", *MEDIA_URL.strip("/").split("/"))
+
+# Static asset configuration
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+try:
+    from local_settings import *
+except ImportError:
+    pass
 
