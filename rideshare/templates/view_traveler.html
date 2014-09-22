@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    View Traveler: {{ traveler.username }}
+{% endblock title %}
+{% block content %}
+<h1>Traveler {{ traveler.username }}</h1>
+<h2>Age: {{ traveler.age }}</h2>
+<h2>Background Checked? {{ traveler.background_checked }}</h2>
+<h2>Driver for:</h2>
+<h2>Picture: <img width= "200px" src="{{ picture.image.url }}"> </h2>
+<ul>{% for ride in routes %}
+    <strong><p>Trip Name: <a href="{% url "view_route" ride.id %}"> {{ ride.trip_name }}</a></p></strong>
+    <li>Starting City: {{ ride.start_city_state }}</li>
+    <li>Start Date: {{ ride.start_date }}</li>
+    <li>Arrival City: {{ ride.end_city_state }}</li>
+    <li>Arrival Date: {{ ride.end_date }}</li>
+
+    <li>Took {% for passenger in ride.passenger.all %} <a href="{% url "view_traveler" passenger.id  %}"> {{ passenger }}</a> {% endfor %}with you!</li>
+
+{% endfor %}</ul>
+<h2>Passenger for:</h2>
+    <ul>{% for ride in passenger_routes %}</ul>
+    <strong><p>Trip Name: <a href="{% url "view_route" ride.id %}"> {{ ride.trip_name }}</a></p></strong>
+    <li>Trip Driver: {{ ride.trip_driver }}</li>
+    <li>Departing City: {{ ride.start_city_state }}</li>
+    <li>Start Date: {{ ride.start_date }}</li>
+    <li>Arrival City: {{ ride.end_city_state }}</li>
+    <li>Arrival Date: {{ ride.end_date }}</li>
+    {% endfor %}
+
+
+{% endblock content %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}
+Edit {{ route.trip_name }}
+{% endblock title %}
+{% block content %}
+<h1>Edit {{ route.trip_name }}</h1> <form method="post">
+{% csrf_token %}
+{{ form }}
+<input type="submit" value="Update Route">
+</form>
+{% endblock content %}

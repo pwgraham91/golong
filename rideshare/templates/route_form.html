@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}
+    Add a Route
+{% endblock title %}
+{% block content %}
+    <h1>Add a Route</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in route_form %}
+        <p>{{ field.label_tag }} {{ field }}</p>
+        {% endfor %}
+        <input type="submit" value="Add Route">
+    </form>
+{% endblock content %}

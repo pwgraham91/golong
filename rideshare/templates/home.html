@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+<h1>Welcome to GoLong! The long-distance ridesharing marketplace</h1>
+<h2>Available routes:</h2>
+<ol>{% for route in routes %}
+    <li><a href="{% url "view_route" route.id %}"> {{ route.trip_name }}</a>, From: {{ route.start_city_state }} To: {{ route.end_city_state }} Driver: <a href=" {% url "view_traveler" route.trip_driver.id %}">{{ route.trip_driver }}</a></li>
+
+{% endfor %}</ol>
+
+{% endblock content %}

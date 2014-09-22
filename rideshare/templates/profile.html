@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}
+Profile
+{% endblock title %}
+
+{% block content %}
+<h1>Profile</h1>
+    <p>Hello {{ user.first_name }}</p>
+    {% if traveler.traveler_image %}
+    <img width= "200px" src="{{ traveler.traveler_image.url }}">
+    {% endif %}
+    <a href="{% url 'route_form' %}">Create New Route</a>
+    <p>Your routes as driver:</p>
+    <ol>{% for route in routes %}
+    <li><a href="{% url 'view_route' route.id %}"> {{ route.trip_name }}</a>. From: {{ route.start_city_state }} To: {{ route.end_city_state }}</li>
+    {% endfor %}</ol>
+    <p>Your routes as passenger:</p>
+    <ol>{% for route in passenger_routes %}
+    <li><a href="{% url 'view_route' route.id %}"> {{ route.trip_name }}</a>. From: {{ route.start_city_state }} To: {{ route.end_city_state }}</li>
+    {% endfor %}</ol>
+    <a href="{% url 'car_form' %}">Add New Car</a>
+    <p>Your Cars:</p>
+    <ol>{% for car in cars %}
+    <li><a href="{% url 'view_car' car.id %}"> {{ car.car_name }}</a></li>
+    {% endfor %}</ol>
+
+
+{% endblock content %}
