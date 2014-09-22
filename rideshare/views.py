@@ -52,6 +52,7 @@ def car_form(request):
                                seats=form.cleaned_data['seats'],
                                car_image=form.cleaned_data['car_image'],
                                owner=request.user)
+            form.save()
             routes = Route.objects.filter(trip_driver__username=request.user)
             passenger_routes = Route.objects.filter(passenger__username=request.user)
             cars = Car.objects.filter(owner__username=request.user)
@@ -71,9 +72,9 @@ def car_form(request):
 
 @login_required()
 def route_form(request):
+    data = {"route_form": RouteForm()}
     route_form = RouteForm()
-    route_form.fields["trip_car"].queryset = Car.objects.filter(owner=request.user)
-    data = {"route_form": route_form}
+    route_form.fields["trip_car"].queryset = Car.objects.filter(owner__username=request.user)
     if request.method == 'POST':
         form = RouteForm(request.POST)
         if form.is_valid():
@@ -84,16 +85,7 @@ def route_form(request):
                                end_date=form.cleaned_data['end_date'],
                                trip_driver= request.user,
                                trip_car=form.cleaned_data['trip_car'])
-            routes = Route.objects.filter(trip_driver__username=request.user)
-            passenger_routes = Route.objects.filter(passenger__username=request.user)
-            cars = Car.objects.filter(owner__username=request.user)
-            data = {
-                'traveler': request.user,
-                'routes': routes,
-                'cars': cars,
-                'passenger_routes': passenger_routes,
-            }
-            return render(request, "profile.html", data)
+            return render(request, "home.html")
 
         else:
             data = {"route_form": form}

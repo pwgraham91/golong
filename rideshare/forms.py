@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm
-from rideshare.models import Traveler, Car
+from rideshare.models import Traveler, Car, Route
 from django import forms
 
 
@@ -19,17 +19,21 @@ class TravelerUserCreationForm(UserCreationForm):
             code='duplicate_username',
         )
 
-class ImageUploadForm(forms.Form):
-    traveler_image = forms.ImageField()
+#
+# class RouteForm(forms.Form):
+#     trip_name = forms.CharField(label="Trip Name")
+#     start_city_state = forms.CharField(label="Departing City")
+#     start_date = forms.DateTimeField(label="Date and Time you will be departing")
+#     end_city_state = forms.CharField(label="Arrival City")
+#     end_date = forms.DateTimeField(label="Date and Time you plan on arriving")
+#     trip_car = forms.ModelChoiceField(queryset=Car.objects.all(), label="Car you will be taking on the trip")
+#     passenger = forms.ModelMultipleChoiceField(queryset=Traveler.objects.all(), label="Passenger(s) riding with you")
 
-class RouteForm(forms.Form):
-    trip_name = forms.CharField(label="Trip Name")
-    start_city_state = forms.CharField(label="Departing City")
-    start_date = forms.DateTimeField(label="Date and Time you will be departing")
-    end_city_state = forms.CharField(label="Arrival City")
-    end_date = forms.DateTimeField(label="Date and Time you plan on arriving")
-    trip_car = forms.ModelChoiceField(queryset=Car.objects.all(), label="Car you will be taking on the trip")
-    passenger = forms.ModelMultipleChoiceField(queryset=Traveler.objects.all(), label="Passenger(s) riding with you")
+class RouteForm(forms.ModelForm):
+    class Meta:
+        model = Route
+        fields = ("trip_name", "start_city_state", "start_date",
+                  "end_city_state", "end_date", "trip_car", "passenger")
 
 class CarForm(forms.Form):
     car_name = forms.CharField(label="Car Name: ex: Mr.T, Batmobile, Herbie, Green Hornet, Mystery Machine, Mad Max, Knight Rider, General Lee, The Magic Schoolbus")

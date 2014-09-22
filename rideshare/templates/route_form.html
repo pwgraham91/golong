@@ -6,9 +6,8 @@
     <h1>Add a Route</h1>
     <form method="post">
         {% csrf_token %}
-        {% for field in route_form %}
-        <p>{{ field.label_tag }} {{ field }}</p>
-        {% endfor %}
+
+    {{ route_form }}
         <input type="submit" value="Add Route">
     </form>
 {% endblock content %}
