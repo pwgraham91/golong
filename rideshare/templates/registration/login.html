@@ -1,12 +1,17 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+{% endblock css %}
 {% block title %}Login{% endblock title %}
 {% block content %}
+    <div class="container">
     <form method="post" action=".">
         {% csrf_token %}
         {{ form.as_p }}
-
-        <input type="submit" value="Log in">
+        <button class= "btn btn-primary" type="submit" value="Log in">Log in</button>
     </form>
     <a href="{% url 'password_reset' %}">Forgot Password?</a>
     <p>Not member? <a href="{% url 'register' %}">Register!</a></p>
+    </div>
 {% endblock %}
