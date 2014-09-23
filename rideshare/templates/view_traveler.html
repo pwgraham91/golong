@@ -7,21 +7,15 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
 {% endblock css %}
 {% block content %}
-
-<h1>Traveler {{ traveler.username }}</h1>
-<h2>Age: {{ traveler.age }}</h2>
-<h2>Background Checked? {{ traveler.background_checked }}</h2>
-<img width= "200px" src="{{ traveler.traveler_image.url }}">
     <div class="container">
-    <h1>Profile</h1>
-    <h4>Hello {{ user.first_name }}</h4>
+    <h1>View {{ user.username }}</h1>
     {% if traveler.traveler_image %}
     <img width= "200px" src="{{ traveler.traveler_image.url }}">
     {% endif %}
     <br>
     <a class="btn btn-primary" href="{% url 'route_form' %}">Create New Route</a>
     {% if routes.count > 0 %}
-    <h4>Your routes as a driver:</h4>
+    <h4>Routes as a driver:</h4>
            <div class="driver-route">
 <div class="input-group"> <span class="input-group-addon">Filter</span>
 
@@ -50,7 +44,7 @@
 
 {% endif %}
 {% if passenger_routes.count > 0 %}
-    <h4>Your routes as a passenger:</h4>
+    <h4>Routes as a passenger:</h4>
            <div class="driver-route">
 <div class="input-group"> <span class="input-group-addon">Filter</span>
 
@@ -87,28 +81,4 @@
 {% endif %}
 
 </div>
-<h2>Driver for:</h2>
-    <ul>{% for ride in routes %}
-    <strong><p>Trip Name: <a href="{% url "view_route" ride.id %}"> {{ ride.trip_name }}</a></p></strong>
-    <li>Starting City: {{ ride.start_city_state }}</li>
-    <li>Start Date: {{ ride.start_date }}</li>
-    <li>Arrival City: {{ ride.end_city_state }}</li>
-    <li>Arrival Date: {{ ride.end_date }}</li>
-{% if ride.passenger.count > 0 %}
-    <li>{% for passenger in ride.passenger.all %} <a href="{% url "view_traveler" passenger.id  %}"> {{ passenger }}</a> {% endfor %}rode along!</li>
-{% endif %}
-{% endfor %}</ul>
-{% if passenger_routes %}
-<h2>Passenger for:</h2>
-
-    <ul>{% for ride in passenger_routes %}</ul>
-    <strong><p>Trip Name: <a href="{% url "view_route" ride.id %}"> {{ ride.trip_name }}</a></p></strong>
-    <li>Trip Driver: {{ ride.trip_driver }}</li>
-    <li>Departing City: {{ ride.start_city_state }}</li>
-    <li>Start Date: {{ ride.start_date }}</li>
-    <li>Arrival City: {{ ride.end_city_state }}</li>
-    <li>Arrival Date: {{ ride.end_date }}</li>
-    {% endfor %}
-{% endif %}
-
 {% endblock content %}
