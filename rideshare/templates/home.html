@@ -4,6 +4,26 @@
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 {% endblock css %}
+{% block script %}
+    <script>
+    $(document).ready(function () {
+
+    (function ($) {
+
+        $('#filter').keyup(function () {
+
+            var rex = new RegExp($(this).val(), 'i');
+            $('.searchable tr').hide();
+            $('.searchable tr').filter(function () {
+                return rex.test($(this).text());
+            }).show();
+
+        })
+
+    }(jQuery));
+
+});</script>
+{% endblock script %}
 {% block content %}
 
     <div class="jumbotron">
