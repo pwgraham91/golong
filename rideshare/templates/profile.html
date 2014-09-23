@@ -1,28 +1,108 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block title %}
 Profile
 {% endblock title %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+{% endblock css %}
+{% block script %}
+    <script>
+    $(document).ready(function () {
 
+    (function ($) {
+
+        $('#filter').keyup(function () {
+
+            var rex = new RegExp($(this).val(), 'i');
+            $('.searchable tr').hide();
+            $('.searchable tr').filter(function () {
+                return rex.test($(this).text());
+            }).show();
+
+        })
+
+    }(jQuery));
+
+});</script>
+{% endblock script %}
 {% block content %}
-<h1>Profile</h1>
-    <p>Hello {{ user.first_name }}</p>
+<div class="container">
+    <h1>Profile</h1>
+    <h4>Hello {{ user.first_name }}</h4>
     {% if traveler.traveler_image %}
     <img width= "200px" src="{{ traveler.traveler_image.url }}">
     {% endif %}
-    <a href="{% url 'route_form' %}">Create New Route</a>
-    <p>Your routes as driver:</p>
-    <ol>{% for route in routes %}
-    <li><a href="{% url 'view_route' route.id %}"> {{ route.trip_name }}</a>. From: {{ route.start_city_state }} To: {{ route.end_city_state }}</li>
-    {% endfor %}</ol>
-    <p>Your routes as passenger:</p>
-    <ol>{% for route in passenger_routes %}
-    <li><a href="{% url 'view_route' route.id %}"> {{ route.trip_name }}</a>. From: {{ route.start_city_state }} To: {{ route.end_city_state }}</li>
-    {% endfor %}</ol>
-    <a href="{% url 'car_form' %}">Add New Car</a>
-    <p>Your Cars:</p>
+    <br>
+    <a class="btn btn-primary" href="{% url 'route_form' %}">Create New Route</a>
+    {% if routes.count > 0 %}
+    <h4>Your routes as a driver:</h4>
+           <div class="driver-route">
+<div class="input-group"> <span class="input-group-addon">Filter</span>
+
+    <input id="filter" type="text" class="form-control" placeholder="Type here...">
+</div>
+               <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Origin</th>
+            <th>Destination</th>
+        </tr>
+    </thead>
+    <tbody class="searchable">
+
+{% for route in routes %}
+        <tr>
+            <td><a href="{% url 'view_route' route.id %}"> {{ route.trip_name }}</a></td>
+            <td>{{ route.start_city_state }}</td>
+            <td>{{ route.end_city_state }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+{% endif %}
+{% if passenger_routes.count > 0 %}
+    <h4>Your routes as a passenger:</h4>
+           <div class="driver-route">
+<div class="input-group"> <span class="input-group-addon">Filter</span>
+
+    <input id="filter" type="text" class="form-control" placeholder="Type here...">
+</div>
+               <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Origin</th>
+            <th>Destination</th>
+        </tr>
+    </thead>
+    <tbody class="searchable">
+
+{% for route in passenger_routes %}
+        <tr>
+            <td><a href="{% url 'view_route' route.id %}"> {{ route.trip_name }}</a></td>
+            <td>{{ route.start_city_state }}</td>
+            <td>{{ route.end_city_state }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+{% endif %}
+    <a class="btn btn-primary" href="{% url 'car_form' %}">Add New Car</a>
+    {% if cars.count > 0 %}
+    <h4>Your Cars:</h4>
     <ol>{% for car in cars %}
     <li><a href="{% url 'view_car' car.id %}"> {{ car.car_name }}</a></li>
     {% endfor %}</ol>
+{% endif %}
+
+</div>
 
 
 {% endblock content %}
+

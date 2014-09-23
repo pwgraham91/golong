@@ -1,0 +1,11 @@
+h1 {
+    text-align: center
+}
+.btn {
+    background-color: dodgerblue;
+    border: orangered;
+    margin: 10px;
+}
+img {
+    margin-bottom: 10px;
+}

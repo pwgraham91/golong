@@ -3,12 +3,14 @@
     Add a Car
 {% endblock title %}
 {% block content %}
+    <div class="container-fluid">
     <h1>Add a Car</h1>
     <form method="post" action="." enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in car_form %}
         <p>{{ field.label_tag }} {{ field }}</p>
         {% endfor %}
-        <input type="submit" value="Add Car" />
+        <button class= "btn btn-primary" type="submit" value="Add Car">Add Car </button>
     </form>
+    </div>
 {% endblock content %}

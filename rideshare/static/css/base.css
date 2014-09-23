@@ -1,0 +1,8 @@
+.navbar {
+    margin-bottom: 0px;
+    background-color: orangered;
+    z-index: 1;
+}
+body {
+    background-color: dimgray;
+}
