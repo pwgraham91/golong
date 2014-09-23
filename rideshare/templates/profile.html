@@ -79,6 +79,7 @@ Profile
             <th>Name</th>
             <th>Origin</th>
             <th>Destination</th>
+            <th>Start Date</th>
         </tr>
     </thead>
     <tbody class="searchable">
@@ -88,6 +89,7 @@ Profile
             <td><a href="{% url 'view_route' route.id %}"> {{ route.trip_name }}</a></td>
             <td>{{ route.start_city_state }}</td>
             <td>{{ route.end_city_state }}</td>
+            <td>{{ route.start_date }}</td>
         </tr>
     {% endfor %}
     </tbody>
@@ -98,9 +100,9 @@ Profile
     <a class="btn btn-primary" href="{% url 'car_form' %}">Add New Car</a>
     {% if cars.count > 0 %}
     <h4>Your Cars:</h4>
-    <ol>{% for car in cars %}
-    <li><a href="{% url 'view_car' car.id %}"> {{ car.car_name }}</a></li>
-    {% endfor %}</ol>
+    {% for car in cars %}
+    <a href="{% url 'view_car' car.id %}"> <img width= "200px" height="150px" src="{{ car.car_image.url }}"></a>
+    {% endfor %}
 {% endif %}
 
 </div>

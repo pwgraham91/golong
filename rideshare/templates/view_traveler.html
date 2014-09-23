@@ -28,6 +28,7 @@
             <th>Name</th>
             <th>Origin</th>
             <th>Destination</th>
+            <th>Start Date</th>
         </tr>
     </thead>
     <tbody class="searchable">
@@ -37,6 +38,7 @@
             <td><a href="{% url 'view_route' route.id %}"> {{ route.trip_name }}</a></td>
             <td>{{ route.start_city_state }}</td>
             <td>{{ route.end_city_state }}</td>
+            <td>{{ route.start_date }}</td>
         </tr>
     {% endfor %}
     </tbody>
@@ -62,7 +64,7 @@
     </thead>
     <tbody class="searchable">
 
-{% for route in ride.passenger.all %}
+{% for route in passenger_routes %}
         <tr>
             <td><a href="{% url 'view_route' route.id %}"> {{ route.trip_name }}</a></td>
             <td>{{ route.start_city_state }}</td>
