@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block title %}
     Add a Car
 {% endblock title %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/car_form.css' %}">
+{% endblock css %}
 {% block content %}
     <div class="container">
     <h1>Add a Car</h1>
