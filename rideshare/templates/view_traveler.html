@@ -8,7 +8,8 @@
 {% endblock css %}
 {% block content %}
     <div class="container">
-    <h1>View {{ user.username }}</h1>
+    <h1>View {{ traveler.username }}</h1>
+    <h4>E-mail: {{ traveler.email }}</h4>
     {% if traveler.traveler_image %}
     <img width= "200px" src="{{ traveler.traveler_image.url }}">
     {% endif %}
@@ -56,6 +57,7 @@
             <th>Name</th>
             <th>Origin</th>
             <th>Destination</th>
+            <th>Start Date</th>
         </tr>
     </thead>
     <tbody class="searchable">
@@ -65,6 +67,7 @@
             <td><a href="{% url 'view_route' route.id %}"> {{ route.trip_name }}</a></td>
             <td>{{ route.start_city_state }}</td>
             <td>{{ route.end_city_state }}</td>
+            <td>{{ route.start_date }}</td>
         </tr>
     {% endfor %}
     </tbody>
