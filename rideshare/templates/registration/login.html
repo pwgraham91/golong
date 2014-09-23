@@ -6,12 +6,14 @@
 {% block title %}Login{% endblock title %}
 {% block content %}
     <div class="container">
-    <form method="post" action=".">
+    <h1>Login to GoLong!</h1>
+        <form method="post" action=".">
         {% csrf_token %}
         {{ form.as_p }}
         <button class= "btn btn-primary" type="submit" value="Log in">Log in</button>
     </form>
-    <a href="{% url 'password_reset' %}">Forgot Password?</a>
-    <p>Not member? <a href="{% url 'register' %}">Register!</a></p>
+    <p style="float: left">Not a member? <a class= "btn btn-primary" href="{% url 'register' %}">Register!</a></p>
+        <a class="btn btn-primary" href="{% url 'password_reset' %}">Forgot Password?</a>
+
     </div>
 {% endblock %}
