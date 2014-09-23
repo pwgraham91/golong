@@ -43,6 +43,7 @@
             <th>Origin</th>
             <th>Destination</th>
             <th>Driver</th>
+            <th>Start Date</th>
         </tr>
     </thead>
     <tbody class="searchable">
@@ -52,6 +53,7 @@
             <td><a href="{% url 'view_route' route.id %}"> {{ route.trip_name }}</a></td>
             <td>{{ route.start_city_state }}</td>
             <td>{{ route.end_city_state }}</td>
+            <td>{{ route.start_date }}</td>
             <td><a href=" {% url "view_traveler" route.trip_driver.id %}">{{ route.trip_driver }}</a></td>
         </tr>
     {% endfor %}

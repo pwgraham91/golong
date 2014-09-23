@@ -48,6 +48,7 @@ Profile
             <th>Name</th>
             <th>Origin</th>
             <th>Destination</th>
+            <th>Start Date</th>
         </tr>
     </thead>
     <tbody class="searchable">
@@ -57,6 +58,7 @@ Profile
             <td><a href="{% url 'view_route' route.id %}"> {{ route.trip_name }}</a></td>
             <td>{{ route.start_city_state }}</td>
             <td>{{ route.end_city_state }}</td>
+            <td>{{ route.start_date }}</td>
         </tr>
     {% endfor %}
     </tbody>
