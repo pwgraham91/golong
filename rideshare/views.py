@@ -3,9 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.files.uploadhandler import FileUploadHandler
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect
-from rideshare.forms import TravelerUserCreationForm, CarForm
+from rideshare.forms import TravelerUserCreationForm, CarForm, RouteForm
 from models import Route, Traveler, Car
-from rideshare.forms import TravelerUserCreationForm, RouteForm
 
 
 def home(request):

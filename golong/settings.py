@@ -120,3 +120,4 @@ try:
 except ImportError:
     pass
 
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
